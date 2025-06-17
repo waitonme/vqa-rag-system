@@ -169,96 +169,15 @@ POST /embed                   # 텍스트 임베딩
 POST /text/generate           # 텍스트 생성
 POST /vqa/generate            # VQA 생성
 GET  /health                  # 모델 상태
-```
+``` 
 
-## ⚙️ 설정 및 최적화
-
-### GPU 메모리 할당
+## GPU 메모리 할당 설정
 ```python
 # model_server.py에서 설정
 GPU 1: Text 모델 (약 3GB)
 GPU 3: VQA 모델 (약 6GB)
 GPU 0: 임베딩 모델 (약 1GB, 자동 할당)
 ```
-
-### 환경 변수
-```bash
-export CUDA_VISIBLE_DEVICES=0,1,3  # 사용할 GPU 설정
-export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512  # 메모리 최적화
-```
-
-## 🔧 문제 해결
-
-### 일반적인 문제들
-
-#### 1. 모델 서버 연결 실패
-```bash
-# 확인 사항
-- model_server.py가 먼저 실행되었는지 확인
-- GPU 메모리 부족 확인 (nvidia-smi)
-- 포트 8001이 사용 중인지 확인 (netstat -tulpn | grep 8001)
-```
-
-#### 2. PDF 처리 실패
-```bash
-# 확인 사항  
-- 파일 크기 제한 (100MB 이하 권장)
-- PDF 형식 확인 (스캔된 PDF는 OCR 필요)
-- 임시 파일 디렉토리 권한 확인
-```
-
-#### 3. 이미지 분석 느림
-```bash
-# 해결 방법
-- GPU 메모리 확인
-- 배치 크기 조정 (models_client.py에서 batch_size)
-- 백그라운드 처리 상태 확인 (/v1/status 엔드포인트)
-```
-
-### 성능 최적화
-
-#### KV 캐시 활용
-- 자주 검색되는 청크들을 자동으로 캐시
-- 반복 질문 시 30-50% 속도 향상
-- 5번의 검색마다 캐시 자동 업데이트
-
-#### 배치 처리
-- 이미지 분석을 배치 단위로 처리 (기본: 2개씩)
-- 메모리 사용량과 속도의 균형 최적화
-
-## 📋 요구사항
-
-### 하드웨어
-- **GPU**: NVIDIA GPU 8GB+ (RTX 3070, A100, V100 등)
-- **RAM**: 16GB+ 권장
-- **Storage**: 10GB+ (모델 다운로드 포함)
-
-### 소프트웨어
-- **Python**: 3.8+
-- **CUDA**: 11.8+ 또는 12.0+
-- **PyTorch**: 2.0+
-
-### 브라우저 지원
-- **Chrome, Firefox, Safari**: 최신 버전
-- **WebSocket**: 스트리밍 응답용
-
-## 📈 성능 벤치마크
-
-| 작업 | 처리 시간 | 메모리 사용량 |
-|------|-----------|---------------|
-| PDF 업로드 (10페이지) | ~5초 | ~2GB |
-| 텍스트 청킹 (50개) | ~2초 | ~500MB |
-| 이미지 분석 (5개) | ~10초 | ~4GB |
-| 질문 답변 (캐시 없음) | ~3초 | ~1GB |
-| 질문 답변 (캐시 있음) | ~1.5초 | ~800MB |
-
-## 🤝 기여하기
-
-1. Fork 프로젝트
-2. Feature 브랜치 생성 (`git checkout -b feature/AmazingFeature`)
-3. 변경사항 커밋 (`git commit -m 'Add some AmazingFeature'`)
-4. 브랜치 Push (`git push origin feature/AmazingFeature`)
-5. Pull Request 생성
 
 ## 📜 라이센스
 
