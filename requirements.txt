@@ -1,0 +1,48 @@
+# Core Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+
+# AI/ML Core
+torch>=2.0.0
+transformers>=4.35.0
+sentence-transformers>=2.2.2
+bitsandbytes>=0.41.0
+
+# Computer Vision & Images
+Pillow>=10.0.0
+
+# HTTP & Networking
+requests>=2.31.0
+httpx>=0.25.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# PDF Processing
+PyMuPDF>=1.23.0  # fitz
+
+# Text Processing
+nltk>=3.8.1
+tqdm>=4.65.0
+
+# Async Support
+asyncio-extras>=1.3.2
+
+# Visualization (for visualization.py)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Additional Scientific Computing
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# File Handling
+openpyxl>=3.1.0  # for Excel files in visualization
+
+# Development & Debugging
+python-multipart>=0.0.6  # for FastAPI file uploads
+
+# Optional: GPU monitoring
+# nvidia-ml-py3>=7.352.0  # uncomment if you need GPU monitoring 
